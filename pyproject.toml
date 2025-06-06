@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "clinical-capacity"
+version = "0.1.0"
+description = ""
+authors = ["filusIcon <filustre@iconhealthco.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pandas = "^2.2.3"
+jupyter = "^1.1.1"
+lab = "^8.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
