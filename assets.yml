@@ -1,0 +1,16 @@
+run_order:
+  - referral_count_arima_model
+  - referral_count_arima_model_forecast_run
+  - referral_count_arima_model_staging
+  - engaged_7d_pct_last_8_cohorts_avg
+  - appointment_frequency_bin
+  - followup_appointment_mode_distribution
+  - inital_appointment_mode_distribution
+  - time_to_first_appt_8_wk_avg
+  - time_to_followup_appt_8_wk_avg
+  - demand_assumptions_considered
+  - projected_date_initial_appointments
+  - demand_assumptions_cosidered_2
+  - projected_date_followup_appointments
+  - demand_final_daily
+  - demand_final

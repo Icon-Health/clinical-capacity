@@ -1,14 +1,14 @@
 create
 or replace model `capacity_plan.referral_count_arima_model` options (
     model_type = 'ARIMA_PLUS',
-    time_series_timestamp_col = 'create_week_start',
+    time_series_timestamp_col = 'creation_date',
     time_series_data_col = 'referral_count',
     auto_arima = TRUE,
-    data_frequency = 'weekly',
+    data_frequency = 'daily',
     decompose_time_series = TRUE
 ) as
 select
-    timestamp(date_trunc (creation_datetime, week (Monday))) as create_week_start,
+    timestamp(date(creation_datetime)) as creation_date,
     count(distinct ID) as referral_count
 from
     `clinical_reporting_pipeline.inbound_referrals`
@@ -18,4 +18,4 @@ where
     and client = 'Conviva'
 group by all
 order by
-    create_week_start desc
+    creation_date desc
