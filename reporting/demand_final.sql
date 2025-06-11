@@ -3,7 +3,7 @@ or replace table capacity_plan.demand_final as
 with
     staging as (
         SELECT
-            DATE_TRUNC (reporting_date, WEEK (MONDAY)) AS reporting_week,
+            date(DATE_TRUNC (reporting_date, WEEK (MONDAY))) AS reporting_week,
             run_type,
             dimension,
             dimension_value,
@@ -76,7 +76,7 @@ with
         GROUP BY ALL
         UNION ALL
         SELECT
-            TIMESTAMP(DATE_TRUNC (creation_datetime, WEEK (MONDAY))) AS reporting_week,
+            date(DATE_TRUNC (creation_datetime, WEEK (MONDAY))) AS reporting_week,
             'Actuals' AS run_type,
             'client' AS dimension,
             client AS dimension_value,

@@ -7,7 +7,7 @@ FROM
     ML.FORECAST (
         MODEL `capacity_plan.referral_count_arima_model`,
         -- 16_weeks_out
-        STRUCT (252 AS horizon, 0.8 AS confidence_level)
+        STRUCT (84 AS horizon, 0.8 AS confidence_level)
     )
 order by
     forecast_timestamp asc

@@ -1,0 +1,58 @@
+create
+or replace table capacity_plan.demand_final_presentation as
+SELECT
+    reporting_week AS `Reporting Week`,
+    run_type AS `Run Type`,
+    dimension AS `Dimension`,
+    dimension_value AS `Dimension Value`,
+    referral_lower_bound_count AS `Referral Lower Bound Count`,
+    referral_count AS `Referral Count`,
+    referral_upper_bound_count AS `Referral Upper Bound Count`,
+    engaged_appt_scheduled_pct_last_8_cohorts_avg AS `Engaged Appt Scheduled Pct Last 8 Cohorts Avg`,
+    projected_engaged_referral_lower_bound_count AS `Projected Engaged Referral Lower Bound Count`,
+    projected_engaged_referral_count AS `Projected Engaged Referral Count`,
+    projected_engaged_referral_upper_bound_count AS `Projected Engaged Referral Upper Bound Count`,
+    time_to_first_appt_8_wk_avg AS `Time To First Appt 8 Wk Avg`,
+    projected_lower_bound_initial_appointments AS `Projected Lower Bound Initial Appointments`,
+    projected_initial_appointments AS `Projected Initial Appointments`,
+    projected_upper_bound_initial_appointments AS `Projected Upper Bound Initial Appointments`,
+    patients_with_two_plus_appointment_pct AS `Patients With Two Plus Appointment Pct`,
+    projected_lower_bound_follow_up_appointments_in_que AS `Projected Lower Bound Follow Up Appointments In Que`,
+    projected_followup_appointments_in_que AS `Projected Followup Appointments In Que`,
+    projected_upper_bound_follow_up_appointments_in_que AS `Projected Upper Bound Follow Up Appointments In Que`,
+    time_to_followup_appt_8_wk_avg AS `Time To Followup Appt 8 Wk Avg`,
+    projected_lower_bound_follow_up_appointments AS `Projected Lower Bound Follow Up Appointments`,
+    projected_followup_appointments AS `Projected Followup Appointments`,
+    projected_upper_bound_follow_up_appointments AS `Projected Upper Bound Follow Up Appointments`,
+    initial_appt_virtual_pct AS `Initial Appt Virtual Pct`,
+    initial_appt_in_person_pct AS `Initial Appt In Person Pct`,
+    projected_lower_bound_initial_appointments_virtual AS `Projected Lower Bound Initial Appointments Virtual`,
+    projected_lower_bound_initial_appointments_in_person AS `Projected Lower Bound Initial Appointments In Person`,
+    projected_initial_appointments_virtual AS `Projected Initial Appointments Virtual`,
+    projected_initial_appointments_in_person AS `Projected Initial Appointments In Person`,
+    projected_upper_bound_initial_appointments_virtual AS `Projected Upper Bound Initial Appointments Virtual`,
+    projected_upper_bound_initial_appointments_in_person AS `Projected Upper Bound Initial Appointments In Person`,
+    followup_appt_virtual_pct AS `Followup Appt Virtual Pct`,
+    followup_appt_in_person_pct AS `Followup Appt In Person Pct`,
+    projected_lower_bound_follow_up_appointments_virtual AS `Projected Lower Bound Follow Up Appointments Virtual`,
+    projected_lower_bound_follow_up_appointments_in_person AS `Projected Lower Bound Follow Up Appointments In Person`,
+    projected_followup_appointments_virtual AS `Projected Followup Appointments Virtual`,
+    projected_followup_appointments_in_person AS `Projected Followup Appointments In Person`,
+    projected_upper_bound_follow_up_appointments_virtual AS `Projected Upper Bound Follow Up Appointments Virtual`,
+    projected_upper_bound_follow_up_appointments_in_person AS `Projected Upper Bound Follow Up Appointments In Person`,
+    appointment_demand_lower_bound_virtual AS `Appointment Demand Lower Bound Virtual`,
+    appointment_demand_lower_bound_in_person AS `Appointment Demand Lower Bound In Person`,
+    appointment_demand_virtual AS `Appointment Demand Virtual`,
+    appointment_demand_in_person AS `Appointment Demand In Person`,
+    appointment_demand_upper_bound_virtual AS `Appointment Demand Upper Bound Virtual`,
+    appointment_demand_upper_bound_in_person AS `Appointment Demand Upper Bound In Person`,
+    demand_hours_lower_bound AS `Demand Hours Lower Bound`,
+    demand_hours AS `Demand Hours`,
+    demand_hours_upper_bound AS `Demand Hours Upper Bound`,
+    forecast_week_sequence AS `Forecast Week Sequence`
+FROM
+    capacity_plan.demand_final
+where
+    forecast_week_sequence != 13
+order by
+    reporting_week asc
