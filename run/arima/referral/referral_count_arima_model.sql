@@ -7,7 +7,7 @@ or replace model `capacity_plan.referral_count_arima_model` options (
     data_frequency = 'daily',
     decompose_time_series = TRUE,
     HOLIDAY_REGION = 'US',
-    TIME_SERIES_LENGTH_FRACTION = .2
+    TIME_SERIES_LENGTH_FRACTION = .015
 ) as
 select
     timestamp(date(creation_datetime)) as creation_date,
