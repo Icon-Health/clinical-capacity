@@ -1,5 +1,3 @@
-create
-or replace table capacity_plan.demand_final_presentation_week_12 as
 select
     `Reporting Week`,
     `Dimension`,
@@ -15,7 +13,7 @@ select
     `Demand Hours Upper Bound`,
     current_date as `Run Date`
 from
-    capacity_plan.demand_final_presentation
+    {{ref('demand_final_presentation')}}
 where
     `Forecast Week Sequence` = 12
     and `Run Type` = 'Forecast'

@@ -1,5 +1,3 @@
-create
-or replace table capacity_plan.demand_final_presentation as
 SELECT
     reporting_week AS `Reporting Week`,
     run_type AS `Run Type`,
@@ -51,7 +49,7 @@ SELECT
     demand_hours_upper_bound AS `Demand Hours Upper Bound`,
     forecast_week_sequence AS `Forecast Week Sequence`
 FROM
-    capacity_plan.demand_final
+{{ref('demand_final')}}
 where
     forecast_week_sequence != 13
 order by

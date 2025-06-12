@@ -1,11 +1,9 @@
-create
-or replace table capacity_plan.time_to_followup_appt_8_wk_avg as
 with
     appointment_deduped as (
         select
             *
         from
-            `clinical_reporting_pipeline.appointments`
+            {{source('clinical_reporting_pipeline','appointments')}}
         where
             client = 'Conviva' qualify row_number() over (
                 partition by
@@ -16,35 +14,18 @@ with
     appointment_staging as (
         select
             patient_id,
-            appointment_datetime,
             date(appointment_datetime) as appointment_date,
+            appointment_id,
+            appointment_mode,
+            duration_minutes,
             row_number() over (
                 partition by
                     patient_id
                 order by
                     appointment_datetime asc
-            ) as rn_asc,
-            lag (date(appointment_datetime)) over (
-                partition by
-                    patient_id
-                order by
-                    appointment_datetime desc
-            ) as next_appointment_date
+            ) as rn_asc
         from
             appointment_deduped
-    ),
-    historical_logic as (
-        select
-            *
-        except
-        (appointment_datetime),
-        date_diff (next_appointment_date, appointment_date, day) as days_to_next_appointment,
-        count(*) over (
-            partition by
-                patient_id
-        ) as historical_appointment_count
-        from
-            appointment_staging
     )
 select
     1 as attribute_id,
@@ -52,12 +33,31 @@ select
         distinct date_trunc (appointment_date, week (Monday))
     ) as appointment_weeks,
     count(distinct patient_id) as patient_count,
-    cast(avg(days_to_next_appointment) as int64) as time_to_followup_appt_8_wk_avg
+    count(distinct appointment_id) as appointment_count,
+    count(
+        distinct case
+            when appointment_mode = 'Virtual' then appointment_id
+        end
+    ) as virual_appointment_count,
+    count(
+        distinct case
+            when appointment_mode = 'In Person' then appointment_id
+        end
+    ) as in_person_appointment_count,
+    count(
+        distinct case
+            when appointment_mode = 'Virtual' then appointment_id
+        end
+    ) / count(distinct appointment_id) as initial_appt_virtual_pct,
+    count(
+        distinct case
+            when appointment_mode = 'In Person' then appointment_id
+        end
+    ) / count(distinct appointment_id) as initial_appt_in_person_pct
 from
-    historical_logic
+    appointment_staging
 where
-    historical_appointment_count > 1
-    and next_appointment_date is not null
+    rn_asc = 1
     and date(date_trunc (appointment_date, week (Monday))) >= date_sub (current_date, interval 9 week)
     and date(date_trunc (appointment_date, week (Monday))) != date(date_trunc (current_date, week (Monday)))
 group by all

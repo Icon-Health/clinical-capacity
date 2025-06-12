@@ -1,5 +1,3 @@
-create
-or replace table capacity_plan.demand_assumptions_considered as
 with
     actual_forecast_spine as (
         select
@@ -12,7 +10,7 @@ with
             c.referral_upper_bound_count,
             1 as attribute_id
         from
-            `capacity_plan.referral_count_arima_model_staging` c
+            {{ref('referral_count_model_staging')}} c
     )
 select
     a.reporting_date,

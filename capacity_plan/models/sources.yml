@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: clinical_reporting_pipeline
+    tables:
+      - name: appointments
+      - name: registered_patients_cohorts_7d
+      - name: registered_patients
+      - name: time_to_first_appointment
+      - name: inbound_referrals
+
+  - name: capacity_plan
+    tables:
+      - name: prophet_run

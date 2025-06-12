@@ -1,5 +1,3 @@
-create
-or replace table capacity_plan.demand_final_daily as
 with
     appointment_demand_staging as (
         select
@@ -16,10 +14,10 @@ with
             --faf.projected_initial_appointments + projected_followup_appointments as appointment_demand,
             --faf.projected_upper_bound_initial_appointments + projected_upper_bound_follow_up_appointments as appointment_demand_upper_bound
         from
-            capacity_plan.demand_assumptions_cosidered_2 d
-            left join capacity_plan.appointment_frequency_bin af on d.attribute_id = af.attribute_id
-            left join capacity_plan.time_to_followup_appt_8_wk_avg fa on d.attribute_id = fa.attribute_id
-            left join capacity_plan.projected_date_followup_appointments faf on d.reporting_date = faf.projected_date_followup_appointments
+            {{ref('demand_assumptions_cosidered_2')}} d
+            left join {{ref('appointment_frequency_bin')}} af on d.attribute_id = af.attribute_id
+            left join {{ref('time_to_followup_appt_8_wk_avg')}} fa on d.attribute_id = fa.attribute_id
+            left join {{ref('projected_date_followup_appointments')}} faf on d.reporting_date = faf.projected_date_followup_appointments
         order by
             reporting_date asc
     ),
@@ -53,8 +51,8 @@ with
         --
         from
             appointment_demand_staging a
-            left join capacity_plan.inital_appointment_mode_distribution i on a.attribute_id = i.attribute_id
-            left join capacity_plan.followup_appointment_mode_distribution ff on a.attribute_id = ff.attribute_id
+            left join {{ref('inital_appointment_mode_distribution')}} i on a.attribute_id = i.attribute_id
+            left join {{ref('followup_appointment_mode_distribution')}} ff on a.attribute_id = ff.attribute_id
     ),
     demand_totals as (
         select

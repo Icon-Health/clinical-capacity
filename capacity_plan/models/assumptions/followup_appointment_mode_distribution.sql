@@ -1,11 +1,9 @@
-create
-or replace table capacity_plan.followup_appointment_mode_distribution as
 with
     appointment_deduped as (
         select
             *
         from
-            `clinical_reporting_pipeline.appointments`
+           {{source('clinical_reporting_pipeline','appointments')}}
         where
             client = 'Conviva' qualify row_number() over (
                 partition by

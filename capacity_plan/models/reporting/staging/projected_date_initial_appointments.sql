@@ -1,5 +1,3 @@
-create
-or replace table capacity_plan.projected_date_initial_appointments as
 select
     reporting_date,
     date_add (
@@ -13,7 +11,6 @@ select
     projected_engaged_referral_count as projected_initial_appointments,
     projected_engaged_referral_upper_bound_count as projected_upper_bound_initial_appointments,
     time_to_first_appt_8_wk_avg
-from
-    capacity_plan.demand_assumptions_considered
+from {{ref('demand_assumptions_considered')}}
 where
     run_type = 'Forecast'

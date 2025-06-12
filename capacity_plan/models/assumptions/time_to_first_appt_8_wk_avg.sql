@@ -1,5 +1,3 @@
-create
-or replace table capacity_plan.time_to_first_appt_8_wk_avg as
 with
     staging as (
         select
@@ -9,8 +7,8 @@ with
             rp.fields_Client as dimension_value,
             avg(t.time_to_first_appt) as time_to_first_appt_avg
         from
-            `clinical_reporting_pipeline.registered_patients` rp
-            left join `clinical_reporting_pipeline.time_to_first_appointment` t on rp.patient_id = t.patient_id
+            {{ source('clinical_reporting_pipeline', 'registered_patients')}} rp
+            left join  {{ source('clinical_reporting_pipeline', 'time_to_first_appointment')}} t on rp.patient_id = t.patient_id
         where
             t.time_to_first_appt is not null
             and rp.fields_Client = 'Conviva'

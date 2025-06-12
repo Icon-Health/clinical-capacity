@@ -1,5 +1,3 @@
-create
-or replace table capacity_plan.demand_final as
 with
     staging as (
         SELECT
@@ -72,7 +70,7 @@ with
             SUM(demand_hours) AS demand_hours,
             SUM(demand_hours_upper_bound) AS demand_hours_upper_bound
         FROM
-            capacity_plan.demand_final_daily
+        {{ref('demand_final_daily')}}
         GROUP BY ALL
         UNION ALL
         SELECT
@@ -125,7 +123,7 @@ with
             NULL AS demand_hours,
             NULL AS demand_hours_upper_bound
         FROM
-            `clinical_reporting_pipeline.inbound_referrals`
+        {{source('clinical_reporting_pipeline','inbound_referrals')}}
         WHERE
             client IS NOT NULL
             AND ID IS NOT NULL

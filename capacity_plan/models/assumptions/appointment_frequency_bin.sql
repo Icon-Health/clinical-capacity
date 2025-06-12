@@ -1,12 +1,11 @@
-create
-or replace table capacity_plan.appointment_frequency_bin as
 with
     staging as (
         select
             patient_id,
             count(distinct appointment_id) as appointment_count
         from
-            `clinical_reporting_pipeline.appointments`
+            {{source('clinical_reporting_pipeline','appointments')}}
+
         where
             client = 'Conviva'
         group by
