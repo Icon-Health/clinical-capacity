@@ -127,7 +127,7 @@ with
         WHERE
             client IS NOT NULL
             AND ID IS NOT NULL
-            AND client = 'Conviva'
+            AND {{ var('dimension') }} = '{{ var('dimension_value') }}'
             AND DATE(DATE_TRUNC (creation_datetime, WEEK (MONDAY))) < DATE(DATE_TRUNC (CURRENT_DATE(), WEEK (MONDAY)))
         GROUP BY ALL
         order by

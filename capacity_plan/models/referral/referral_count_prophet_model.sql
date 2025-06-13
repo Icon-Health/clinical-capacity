@@ -15,5 +15,5 @@ where
         where
             client is not null
             and ID is not null
-            and client = 'Conviva'
+            and {{ var('dimension') }} = '{{ var('dimension_value') }}'
     )

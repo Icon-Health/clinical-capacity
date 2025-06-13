@@ -3,8 +3,8 @@ with
         select
             ds as creation_date,
             'Forecast' as run_type,
-            'client' as dimension,
-            'Conviva' as dimension_value,
+            '{{ var('dimension') }}'  as dimension,
+            '{{ var('dimension_value') }}' as dimension_value,
             yhat as referral_count,
             yhat_lower as referral_lower_bound_count,
             yhat_upper as referral_upper_bound_count

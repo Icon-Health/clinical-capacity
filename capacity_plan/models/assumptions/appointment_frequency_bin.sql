@@ -7,7 +7,7 @@ with
             {{source('clinical_reporting_pipeline','appointments')}}
 
         where
-            client = 'Conviva'
+              {{ var('dimension') }} = '{{ var('dimension_value') }}'
         group by
             1
     ),

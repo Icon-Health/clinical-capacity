@@ -11,7 +11,9 @@ select
     `Demand Hours Lower Bound`,
     `Demand Hours`,
     `Demand Hours Upper Bound`,
-    current_date as `Run Date`
+     current_date as `Run Date`,
+     '{{ var('run_by') }}' as `Run By`,
+     '{{ var('run_notes') }}' as `Run Notes`
 from
     {{ref('demand_final_presentation')}}
 where

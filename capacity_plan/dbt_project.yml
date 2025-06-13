@@ -23,3 +23,10 @@ clean-targets: # directories to be removed by `dbt clean`
 models:
   capacity_plan:
     materialized: table
+
+vars:
+  dimension: client
+  fields_dimension: fields_Client
+  dimension_value: Conviva
+  run_notes: test_run_by_fidel
+  run_by: fidel

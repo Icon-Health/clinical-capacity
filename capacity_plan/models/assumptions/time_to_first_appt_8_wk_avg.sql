@@ -3,15 +3,15 @@ with
         select
             date_trunc (creation_datetime, week (Monday)) as creation_week,
             count(distinct rp.patient_id) as patient_count,
-            'client' as dimension,
-            rp.fields_Client as dimension_value,
+            '{{ var('dimension') }}' as dimension,
+            '{{ var('dimension_value') }}' as dimension_value,
             avg(t.time_to_first_appt) as time_to_first_appt_avg
         from
             {{ source('clinical_reporting_pipeline', 'registered_patients')}} rp
             left join  {{ source('clinical_reporting_pipeline', 'time_to_first_appointment')}} t on rp.patient_id = t.patient_id
         where
             t.time_to_first_appt is not null
-            and rp.fields_Client = 'Conviva'
+            and {{ var('fields_dimension') }} = '{{ var('dimension_value') }}'
         group by all
         order by
             creation_week desc

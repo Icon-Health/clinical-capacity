@@ -5,7 +5,7 @@ with
         from
             {{source('clinical_reporting_pipeline','appointments')}}
         where
-            client = 'Conviva' qualify row_number() over (
+            {{ var('dimension') }} = '{{ var('dimension_value') }}' qualify row_number() over (
                 partition by
                     patient_id,
                     date(appointment_datetime)
