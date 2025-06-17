@@ -1,4 +1,5 @@
 SELECT
+    reporting_week,
     reporting_week AS `Reporting Week`,
     run_type AS `Run Type`,
     dimension AS `Dimension`,
@@ -50,7 +51,5 @@ SELECT
     forecast_week_sequence AS `Forecast Week Sequence`
 FROM
 {{ref('demand_final')}}
-where
-    forecast_week_sequence != 13
 order by
     reporting_week asc

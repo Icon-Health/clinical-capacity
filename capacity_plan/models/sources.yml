@@ -12,3 +12,7 @@ sources:
   - name: capacity_plan
     tables:
       - name: prophet_run
+
+  - name: analytics_manual
+    tables:
+      - name: calendar

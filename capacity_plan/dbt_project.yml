@@ -28,5 +28,7 @@ vars:
   dimension: client
   fields_dimension: fields_Client
   dimension_value: Conviva
-  run_notes: test_run_by_fidel
+  run_notes: no_manual_input
   run_by: fidel
+  #current_date_name_run_sequence_of_date
+  identifier: june_17_fidel_ilustre_1
