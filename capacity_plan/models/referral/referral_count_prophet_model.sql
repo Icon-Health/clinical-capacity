@@ -18,7 +18,10 @@ where
         where
             client is not null
             and ID is not null
-            and {{ var('dimension') }} = '{{ var('dimension_value') }}'
+            and client in ('Conviva','Primus')
+            --and ({{ var('dimension') }} = '{{ var('dimension_value') }}'
+            --     or {{ var('dimension') }} = '{{ var('dimension_value2') }}')
+            and date_trunc(ds,week(Monday)) != date_trunc(current_date,week(Monday))
     )
 
 --and day_name not in ('Saturday','Sunday')

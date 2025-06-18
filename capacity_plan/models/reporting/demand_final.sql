@@ -69,15 +69,15 @@ with
             SUM(demand_hours_lower_bound) AS demand_hours_lower_bound,
             SUM(demand_hours) AS demand_hours,
             SUM(demand_hours_upper_bound) AS demand_hours_upper_bound
-        FROM
-        {{ref('demand_final_daily')}}
+        FROM {{ref('demand_final_daily')}}
         GROUP BY ALL
         UNION ALL
         SELECT
             date(DATE_TRUNC (creation_datetime, WEEK (MONDAY))) AS reporting_week,
             'Actuals' AS run_type,
             'client' AS dimension,
-            client AS dimension_value,
+            --client AS dimension_value,
+            'Conviva, Primus' as dimension_value,
             NULL AS referral_lower_bound_count,
             COUNT(DISTINCT ID) AS referral_count,
             NULL AS referral_upper_bound_count,
@@ -127,13 +127,15 @@ with
         WHERE
             client IS NOT NULL
             AND ID IS NOT NULL
-            AND {{ var('dimension') }} = '{{ var('dimension_value') }}'
+            --AND {{ var('dimension') }} = '{{ var('dimension_value') }}'
+            and {{ var('dimension') }} in ('Conviva','Primus')
             AND DATE(DATE_TRUNC (creation_datetime, WEEK (MONDAY))) < DATE(DATE_TRUNC (CURRENT_DATE(), WEEK (MONDAY)))
         GROUP BY ALL
         order by
             reporting_week asc
     )
 select
+    1 as attribute_id,
     *,
     ROW_NUMBER() OVER (
         PARTITION BY

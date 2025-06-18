@@ -36,17 +36,17 @@ with
                 )
             ) as appointment_hours
         from
-            `clinical_reporting_pipeline.appointments`
+            {{source('clinical_reporting_pipeline','appointments')}}
         where
-            client = 'Conviva'
+            client in ('Conviva','Primus')
         group by
             1
     )
 select
     date_trunc (appointment_date, week (Monday)) as appointment_week,
-    sum(in_person_appointment_hours) as in_person_appointment_hours,
-    sum(virtual_appointment_hours) as virtual_appointment_hours,
-    sum(appointment_hours) as appointment_hours
+    sum(in_person_appointment_hours) as in_person_appointment_hours_actuals,
+    sum(virtual_appointment_hours) as virtual_appointment_hours_acual,
+    sum(appointment_hours) as appointment_hours_actuals
 from
     appointment_actual_staging
 group by

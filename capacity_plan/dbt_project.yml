@@ -28,7 +28,8 @@ vars:
   dimension: client
   fields_dimension: fields_Client
   dimension_value: Conviva
-  run_notes: no_manual_input
+  dimension_value2: Primus
+  run_notes: market_proxy_to_palm_beach_test_run_2
   run_by: fidel
   #current_date_name_run_sequence_of_date
-  identifier: june_17_fidel_ilustre_1
+  identifier: june_18_fidel_ilustre_2

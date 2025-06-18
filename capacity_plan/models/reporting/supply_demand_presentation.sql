@@ -48,8 +48,17 @@ SELECT
     demand_hours_lower_bound AS `Demand Hours Lower Bound`,
     demand_hours AS `Demand Hours`,
     demand_hours_upper_bound AS `Demand Hours Upper Bound`,
+    provider_counts AS `Provider Counts`,
+    supply_hours_available_actuals AS `Supply Hours Available Actuals`,
+    supply_hours_available_ideal AS `Supply Hours Available Ideal`,
+    net_hours_needed_actuals_lower AS `Net Hours Needed Actuals Lower Bound`,
+    net_hours_needed_actuals AS `Net Hours Needed Actuals`,
+    net_hours_needed_actuals_upper AS `Net Hours Needed Actuals Upper Bound`,
+    net_hours_needed_ideal_lower AS `Net Hours Needed Ideal Lower Bound`,
+    net_hours_ideal_actuals AS `Net Hours Needed Ideal`,
+    net_hours_needed_ideal_upper AS `Net Hours Needed Ideal Upper Bound`,
     forecast_week_sequence AS `Forecast Week Sequence`
 FROM
-{{ref('demand_final')}}
+{{ref('supply_demand')}}
 order by
     reporting_week asc

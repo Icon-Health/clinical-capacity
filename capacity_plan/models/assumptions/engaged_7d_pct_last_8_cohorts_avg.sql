@@ -7,7 +7,8 @@ select
 from
      {{source('clinical_reporting_pipeline','registered_patients_cohorts_7d')}}
 where
-    {{ var('dimension') }} = '{{ var('dimension_value') }}'
+    --{{ var('dimension') }} = '{{ var('dimension_value') }}'
+    client in ('Conviva','Primus')
     and creation_week >= date_sub (current_date, interval 8 week)
 group by all
 having
