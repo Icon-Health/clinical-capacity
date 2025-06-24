@@ -38,7 +38,7 @@ week_aggs as (
 select
 1 as attribute_id,
 array_agg(distinct appointment_week) as appointment_weeks,
-array_agg(distinct provider_count) as provider_counts,
+max(provider_count) as provider_counts,
 array_agg(distinct in_person_appointment_hours) as in_person_appointment_hours,
 array_agg(distinct virtual_appointment_hours) as virtual_appointment_hours,
 array_agg(distinct appointment_hours) as appointment_hours,
@@ -53,7 +53,7 @@ group by all
 select
 *,
 30 as ideal_appointment_hours_per_week_per_provider,
-round(provider_counts[0] * avg_appointment_hours_per_week_per_provider,0) as supply_hours_available_actuals,
-round(provider_counts[0] * 30,0) as supply_hours_available_ideal,
+round(provider_counts * avg_appointment_hours_per_week_per_provider,0) as supply_hours_available_actuals,
+round(provider_counts * 30,0) as supply_hours_available_ideal,
 
 from aggs_final
