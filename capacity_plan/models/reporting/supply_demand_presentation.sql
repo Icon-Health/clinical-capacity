@@ -1,5 +1,5 @@
 SELECT
-    reporting_week,
+    id as `Id`,
     reporting_week AS `Reporting Week`,
     run_type AS `Run Type`,
     dimension AS `Dimension`,
@@ -59,6 +59,6 @@ SELECT
     net_hours_needed_ideal_upper AS `Net Hours Needed Ideal Upper Bound`,
     forecast_week_sequence AS `Forecast Week Sequence`
 FROM
-{{ref('supply_demand')}}
-order by
-    reporting_week asc
+{{ref('supply_demand_historical')}}
+where forecast_week_sequence in (12,35)
+order by forecast_week_sequence,reporting_week asc
