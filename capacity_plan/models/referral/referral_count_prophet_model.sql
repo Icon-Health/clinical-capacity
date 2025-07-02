@@ -21,7 +21,8 @@ where
             and client in ('Conviva','Primus')
             --and ({{ var('dimension') }} = '{{ var('dimension_value') }}'
             --     or {{ var('dimension') }} = '{{ var('dimension_value2') }}')
-            and date_trunc(ds,week(Monday)) != date_trunc(current_date,week(Monday))
+            --and date_trunc(ds,week(Monday)) != date_trunc(current_date,week(Monday))
     )
+    and date_trunc(date(p.ds),week(MONDAY)) >= date_trunc(date(current_date),week(MONDAY))
 
 --and day_name not in ('Saturday','Sunday')
