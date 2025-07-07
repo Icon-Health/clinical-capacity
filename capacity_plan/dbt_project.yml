@@ -29,7 +29,7 @@ vars:
   fields_dimension: fields_Client
   dimension_value: Conviva
   dimension_value2: Primus
-  run_notes: june_30_run
+  run_notes: july_7_run
   run_by: fidel
   #current_date_name_run_sequence_of_date
-  identifier: june_30_fidel_ilustre_1
+  identifier: july_7_fidel_ilustre_1
